@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRMS Login</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  .login-card h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: #0f1f3d;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+  .login-card .subtitle {
+    color: #5a6580;
+    text-align: center;
+    margin-bottom: 28px;
+    font-size: 13px;
+  }
+  .login-card form {
+    display: grid;
+    gap: 16px;
+    max-width: 100%;
+  }
+  .login-card form > label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #5a6580;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+  .login-card .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .login-footer { 
+    text-align: center; 
+    margin-top: 20px; 
+    font-size: 13px; 
+    color: #5a6580;
+  }
+  .login-footer a { color: #c9a84c; font-weight: 600; text-decoration: none; }
+  .login-footer a:hover { text-decoration: underline; }
+  .crms-logo {
+    text-align: center;
+    margin-bottom: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #c9a84c;
+  }
+</style>
+</head>
+<body>
+<div class="login-wrapper">
+<div class="login-card">
+  <div class="crms-logo">CRMS</div>
+  <h1>Campus Resource<br>Management System</h1>
+  <p class="subtitle">Sign in to access your campus resources</p>
+
+  <form action="LoginServlet" method="post">
+    <div class="form-group">
+      <label>Email Address</label>
+      <input type="email" name="email" placeholder="yourname@campus.edu" required>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" name="password" placeholder="Enter your password" required>
+    </div>
+    <button type="submit" class="btn-primary" style="width:100%;justify-content:center;padding:12px;font-size:15px;margin-top:4px;">
+      Sign In
+    </button>
+  </form>
+
+  <div class="login-footer">
+    New user? <a href="register.jsp">Register here</a>
+  </div>
+</div>
+</div>
+</body>
+</html>

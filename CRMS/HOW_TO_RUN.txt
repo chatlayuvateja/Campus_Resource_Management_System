@@ -1,0 +1,97 @@
+==================================================================
+  CRMS — Campus Resource Management System
+  FIXED VERSION — HOW TO RUN
+==================================================================
+
+STEP 1: SET UP DATABASE
+-----------------------
+1. Open MySQL Workbench
+2. Click File > Open SQL Script
+3. Choose "fix_database.sql" from this folder
+4. Click the lightning bolt (Execute All)
+5. You should see: "Database ready — all tables created/fixed, resources seeded."
+
+This creates all tables AND seeds them with 40 campus resources
+(classrooms, labs, sports, library, equipment).
+
+STEP 2: CONFIGURE DATABASE PASSWORD
+------------------------------------
+Open:  src/com/crms/db/DBConnection.java
+Find:  conn = DriverManager.getConnection(..., "root", "yuva@2005");
+Change "yuva@2005" to YOUR MySQL root password.
+
+STEP 3: COMPILE
+---------------
+1. Open compile.bat
+2. Change TOMCAT_HOME to your actual Tomcat folder path
+3. Double-click compile.bat
+4. You should see: "SUCCESS!"
+
+STEP 4: DEPLOY TO TOMCAT
+-------------------------
+Copy this entire "CRMS_final" folder to:
+  C:\apache-tomcat-9.0.xx\webapps\
+
+Start Tomcat (bin\startup.bat)
+
+Open browser:  http://localhost:8080/CRMS_final/login.html
+
+STEP 5: CREATE AN ADMIN USER
+-----------------------------
+Run this SQL in MySQL Workbench:
+  INSERT INTO campus_rms.users
+    (username, password, full_name, email, id_number, role)
+  VALUES
+    ('admin', 'admin123', 'Administrator', 'admin@campus.edu', 'ADM001', 'admin');
+
+Then login with:  admin / admin123
+
+==================================================================
+  WHAT WAS FIXED IN THIS VERSION
+==================================================================
+
+1. MAINTENANCE REQUESTS
+   - Form now saves to database correctly
+   - Table below form shows live data from DB
+   - Admin can see ALL maintenance requests in Admin Panel
+   - Admin can mark requests as "In Progress" or "Resolved"
+   - All user roles can now submit maintenance requests
+
+2. ANNOUNCEMENTS
+   - Announcements now save to database and appear in the table
+   - ALL users (students, faculty, etc.) can VIEW announcements
+   - Only admin/faculty can POST announcements
+   - Admin sees all announcements in Admin Panel > Announcements tab
+
+3. RESOURCE REGISTRATION
+   - Form now saves correctly to database
+   - Table shows all resources live from DB
+   - Newly registered resources immediately appear in booking/equipment dropdowns
+
+4. BOOKING FORM DROPDOWN
+   - Now shows all rooms, labs, sports facilities, and library rooms from DB
+   - Grouped by type: Classrooms, Laboratories, Sports & Grounds, Library
+
+5. EQUIPMENT FORM DROPDOWN
+   - Now shows all 16 equipment items from DB
+   - All equipment seeded: Projectors, Laptops, Cameras, PA System, etc.
+
+6. ADMIN VISIBILITY
+   - Admin Panel now has 8 tabs: Complaints, Maintenance, Announcements,
+     Notifications, Resources, Room Bookings, Equipment, Users
+   - NEW: Notifications tab shows ALL user activity across all modules
+
+7. TABLE ERRORS FIXED
+   - All NULL status values handled (defaults to "pending")
+   - Role restrictions corrected so pages don't block legitimate users
+   - AuthFilter updated so students/faculty can access all appropriate pages
+
+8. ROLE ACCESS FIXED
+   - Students: can now access Bookings, Equipment, Complaints, Maintenance, Announcements
+   - Faculty: same as students plus can post Announcements
+   - Warden: Hostel, Complaints, Maintenance
+   - Labtech: Equipment, Maintenance
+   - Librarian: Library, Maintenance
+   - Admin: everything via Admin Panel
+
+==================================================================
